@@ -57,21 +57,20 @@ Node* insert(Node* node, string key) {
 
     int balance = getBalance(node);
 
-    // Left Left
     if (balance > 1 && key < node->left->key)
         return rightRotate(node);
 
-    // Right Right
+   
     if (balance < -1 && key > node->right->key)
         return leftRotate(node);
 
-    // Left Right
+   
     if (balance > 1 && key > node->left->key) {
         node->left = leftRotate(node->left);
         return rightRotate(node);
     }
 
-    // Right Left
+
     if (balance < -1 && key < node->right->key) {
         node->right = rightRotate(node->right);
         return leftRotate(node);
