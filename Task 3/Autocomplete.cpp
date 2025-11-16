@@ -63,7 +63,7 @@ Node* insert(Node* node, const string& key) {
     node->height = 1 + max(height(node->left), height(node->right));
     int balance = getBalance(node);
 
-    // Rotations
+    
     if (balance > 1 && key < node->left->key)
         return rightRotate(node);
 
