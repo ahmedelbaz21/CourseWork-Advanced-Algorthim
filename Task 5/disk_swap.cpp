@@ -1,11 +1,13 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-void printDisks(char disks[], int size) {
-    for (int i = 0; i < size; i++)
+void printDisks(const vector<char>& disks) {
+    for (int i = 0; i < disks.size(); i++)
         cout << disks[i];
     cout << endl;
 }
+
 
 int main() {
     int n;
@@ -13,19 +15,19 @@ int main() {
     cin >> n;
 
     int size = 2 * n;
-    char disks[200];
+    vector<char> disks(2*n);
 
     for (int i = 0; i < size; i++) {
         disks[i] = (i % 2 == 0) ? 'D' : 'L';
     }
 
     cout << "Initial state: ";
-    printDisks(disks, size);
+    printDisks(disks);
 
     int moves = 0;
     bool swapped = true;
 
-    
+
     while (swapped) {
         swapped = false;
 
@@ -40,13 +42,13 @@ int main() {
                 swapped = true;
 
                 cout << "Move " << moves << ": ";
-                printDisks(disks, size);
+                printDisks(disks);
             }
         }
     }
 
     cout << "Final sorted state: ";
-    printDisks(disks, size);
+    printDisks(disks);
     cout << "Total moves = " << moves << endl;
 
     return 0;
