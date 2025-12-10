@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+using namespace std;
+
+int weigh(int w1, int w2) {
+    if (w1 == w2) return 0;
+    return (w1 > w2) ? 1 : -1;
+}
+
+string balanceStr(int r) {
+    return r == 0 ? string("balanced") : r == 1 ? string("left heavier") : string("right heavier");
+}
+
+int main() {
+    srand(time(0));
+    int n = 20;
+    int coins[n];
+
+    int realWeight = 5 + rand() % 16;
+    for (int i = 0; i < n; i++) coins[i] = realWeight;
+
+    int fakeIndex = rand() % n;
+    int fakeType = (rand() % 2 == 0) ? 1 : -1;
+    coins[fakeIndex] += fakeType;
+
+    int realCoin = -1;
+    for (int i = 0; i < n-1; i += 2) {
+        int r = weigh(coins[i], coins[i+1]);
+        cout << "Weigh coin " << i << " vs " << i+1 << ": " << balanceStr(r) << endl;
+        if (r == 0) {
+            realCoin = i;
+            break;
+        }
+    }
+
+    int fakeCoin = -1;
+    for (int i = 0; i < n; i++) {
+        if (i == realCoin) continue;
+        int r = weigh(coins[i], coins[realCoin]);
+        cout << "Weigh coin " << i << " vs " << realCoin << ": " << balanceStr(r) << endl;
+        if (r != 0) {
+            fakeCoin = i;
+            fakeType = r;
+            break;
+        }
+    }
+
+
+    if (fakeCoin != -1)
+        cout << "RESULT: Coin " << fakeCoin << " is " << (fakeType == 1 ? "HEAVIER" : "LIGHTER") << endl;
+    else
+        cout << "RESULT: No fake coin found" << endl;
+    return 0;
+}
